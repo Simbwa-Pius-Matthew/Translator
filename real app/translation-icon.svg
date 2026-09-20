@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">LUGAFLOW translation icon</title>
+  <desc id="desc">Two language speech bubbles connected by a translation arrow</desc>
+  <rect width="64" height="64" rx="16" fill="#285b4a"/>
+  <path d="M12 15.5A7.5 7.5 0 0 1 19.5 8h13A7.5 7.5 0 0 1 40 15.5v8a7.5 7.5 0 0 1-7.5 7.5H23l-7 6v-6.4a7.5 7.5 0 0 1-4-6.6z" fill="#f5f1e8"/>
+  <path d="M52 48.5A7.5 7.5 0 0 1 44.5 56h-13a7.5 7.5 0 0 1-7.5-7.5v-8a7.5 7.5 0 0 1 7.5-7.5H41l7-6v6.4a7.5 7.5 0 0 1 4 6.6z" fill="#dce8a6"/>
+  <path d="M21 18h10M21 23h6M33 42h10M37 47h6" fill="none" stroke="#285b4a" stroke-linecap="round" stroke-width="2.5"/>
+  <path d="m27 35 5-4m0 0-1 5m1-5-5 1" fill="none" stroke="#e68769" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+</svg>

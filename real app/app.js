@@ -1,0 +1,339 @@
+const dictionary = {
+  "oli otya": "How are you?",
+  "oli otya?": "How are you?",
+  "mwasuze mutya": "How did you sleep?",
+  "mwasuze mutya?": "How did you sleep?",
+  "wasuze otya": "How did you sleep?",
+  "wasuze otya?": "How did you sleep?",
+  "gyebale ko": "Well done",
+  "gyebale ko!": "Well done",
+  "webale": "Thank you",
+  "webale nnyo": "Thank you very much",
+  "webale nnyo!": "Thank you very much",
+  "nkwagala": "I love you",
+  "nkwagala nnyo": "I love you very much",
+  "nsanyuse okukulaba": "I am happy to see you",
+  "tukusanyukidde": "We are happy to have you",
+  "erinnya lyo ggwe ani": "What is your name?",
+  "oyitibwa ani": "What is your name?",
+  "erinnya lyange": "My name is",
+  "nsaba oyambe": "Please help me",
+  "mpola mpola": "Slowly, slowly",
+  "kaakati": "Now",
+  "enkya": "Tomorrow",
+  "leero": "Today",
+  "amazzi": "Water",
+  "emmere": "Food",
+  "mirembe": "Peace / Hello",
+  "ssebo": "Sir",
+  "nnyabo": "Madam",
+  "yego": "Yes",
+  "nedda": "No",
+  "ssebo webale": "Thank you, sir",
+  "nnyabo webale": "Thank you, madam",
+  "oli bulungi": "Are you well?",
+  "ndi bulungi": "I am well",
+  "mwebale nnyo": "Thank you all very much",
+  "mwasibula mutya": "How was your day?",
+  "mwasibula mutya?": "How was your day?",
+  "mukomyeewo": "Welcome back",
+  "tukusanyukidde okukulaba": "We are happy to see you",
+  "sula bulungi": "Sleep well",
+  "weebale okumpulira": "Thank you for listening to me",
+  "nsonyiwa": "Excuse me / Forgive me",
+  "nsaba": "Please",
+  "ka nsabe": "Let me ask",
+  "tewali buzibu": "No problem",
+  "kale": "Okay / All right",
+  "mazima": "Really / Truly",
+  "mpulira": "I understand / I hear you",
+  "sitetegedde": "I do not understand",
+  "oyogera lulimi ki": "What language do you speak?",
+  "oyogera lungereza": "Do you speak English?",
+  "njogera luganda katono": "I speak a little Luganda",
+  "njagala okuyiga olulimi oluganda": "I want to learn Luganda",
+  "ogenda wa": "Where are you going?",
+  "ova wa": "Where are you from?",
+  "ntudde wano": "I live here",
+  "ndi mugenyi": "I am a visitor",
+  "wali otya": "How are things?",
+  "ebigambo": "Words",
+  "olunaku olulungi": "Have a good day",
+  "weekende ennungi": "Have a good weekend",
+  "tulabe": "See you",
+  "tulabagane": "See you later",
+  "nkwagaliza olugendo olulungi": "I wish you a good journey",
+  "mukama akuwe omukisa": "God bless you",
+  "ssanyu": "Happiness",
+  "osanyuse": "Be happy",
+  "nina essanyu": "I am happy",
+  "ndi munafu": "I am tired",
+  "ndi mulwadde": "I am sick",
+  "nina enjala": "I am hungry",
+  "nina ennyonta": "I am thirsty",
+  "njagala amazzi": "I want water",
+  "njagala emmere": "I want food",
+  "emmere eno nnungi": "This food is delicious",
+  "omuwendo gwe guli gutya": "How much does it cost?",
+  "kikendeezeeko": "Reduce the price",
+  "njagala kino": "I want this",
+  "sijagala kino": "I do not want this",
+  "waliwo ekifo ekyokulya": "Is there a place to eat?",
+  "wc eri ludda wa": "Where is the toilet?",
+  "edduuka liri ludda wa": "Where is the shop?",
+  "ddwaliro liri ludda wa": "Where is the hospital?",
+  "nzijukira ekkubo": "I know the way",
+  "sibuuze kkubo": "I am lost",
+  "nyamba": "Help me",
+  "yita poliisi": "Call the police",
+  "waliwo obubenje": "There is an accident",
+  "yimirira wano": "Stop here",
+  "genda mpola": "Go slowly",
+  "kuba ku kkono": "Turn left",
+  "kuba ku ddyo": "Turn right",
+  "genda butereevu": "Go straight",
+  "kumpi": "Near",
+  "wala": "Far",
+  "ku kkono": "On the left",
+  "ku ddyo": "On the right",
+  "waggulu": "Up / Above",
+  "wansi": "Down / Below",
+  "omu maaso": "In front",
+  "ennyuma": "Behind",
+  "essaawa emeka": "What time is it?",
+  "kati essaawa emeka": "What time is it now?",
+  "ku makya": "In the morning",
+  "akawungeezi": "In the evening",
+  "obudde": "Time / Weather",
+  "enkya ku makya": "Tomorrow morning",
+  "jjo": "Yesterday",
+  "sabbiiti eno": "This week",
+  "omwaka omulungi": "Happy New Year",
+  "amazaalibwa amalungi": "Happy birthday",
+  "mwebale okujja": "Thank you for coming",
+  "nsanyuse okukumanya": "I am happy to know you",
+  "njakukuba essimu": "I will call you",
+  "tukomyeewo": "We have returned",
+  "ka tugende": "Let us go",
+  "tukyalina obudde": "We still have time",
+  "nze mpulira bulungi": "I feel well",
+  "kino kye ki": "What is this?",
+  "kino kya ani": "Whose is this?",
+  "ogamba ki": "What do you say?",
+  "ddamu": "Repeat",
+  "yogera mpola": "Speak slowly",
+  "wandiika": "Write it down",
+  "nsonyiwa nnyo": "I am very sorry",
+  "sikyagala": "I do not like it",
+  "nkyagala": "I still like it",
+  "kituufu": "That is correct",
+  "si kituufu": "That is not correct",
+  "mpa akaseera": "Give me a moment",
+  "ndijja nate": "I will come again",
+  "nkwagaliza akalungi": "I wish you well"
+};
+
+const phraseItems = [
+  ["amazzi", "water"], ["emmere", "food"], ["ssente", "money"], ["obudde", "time"],
+  ["obuyambi", "help"], ["eddagala", "medicine"], ["essimu", "a phone"], ["tikiti", "a ticket"],
+  ["paasipooti", "a passport"], ["ekitabo", "a book"], ["olupapula", "paper"], ["ekalamu", "a pen"],
+  ["ennyumba", "a house"], ["ekisumuluzo", "a key"], ["ensawo", "a bag"], ["engoye", "clothes"],
+  ["engatto", "shoes"], ["ekitanda", "a bed"], ["entebe", "a chair"], ["emmeeza", "a table"],
+  ["ekikopo", "a cup"], ["essowaani", "a plate"], ["akawunga", "porridge"], ["omuceere", "rice"],
+  ["ennyama", "meat"], ["enkoko", "chicken"], ["amagi", "eggs"], ["ebibala", "fruit"],
+  ["ebijanjaalo", "beans"], ["matooke", "matoke"], ["omukyala", "a woman"], ["omusajja", "a man"],
+  ["omwana", "a child"], ["mukwano", "a friend"], ["omusawo", "a doctor"], ["omusomesa", "a teacher"],
+  ["omupoliisi", "a police officer"], ["omuvuzi", "a driver"], ["omugenyi", "a visitor"], ["omukulembeze", "a leader"],
+  ["ekibuga", "the city"], ["eddwaliro", "the hospital"], ["edduuka", "the shop"], ["ssomero", "the school"],
+  ["hoteri", "the hotel"], ["banka", "the bank"], ["kkanisa", "the church"], ["omuzikiti", "the mosque"],
+  ["Kampala", "Kampala"], ["Jinja", "Jinja"], ["Entebbe", "Entebbe"], ["Masaka", "Masaka"],
+  ["Uganda", "Uganda"], ["olugendo", "the journey"], ["emmotoka", "the car"], ["pikipiki", "the motorcycle"]
+];
+
+const phraseTemplates = [
+  ["njagala {lug}", "I want {en}"],
+  ["njagala {lug} nnyo", "I really want {en}"],
+  ["nina {lug}", "I have {en}"],
+  ["sirina {lug}", "I do not have {en}"],
+  ["nkwetaaga {lug}", "I need {en}"],
+  ["sikwetaaga {lug}", "I do not need {en}"],
+  ["mpa {lug}", "Give me {en}"],
+  ["mpa {lug} katono", "Give me a little {en}"],
+  ["oyagala {lug}?", "Do you want {en}?"],
+  ["olina {lug}?", "Do you have {en}?"],
+  ["osobola okumpa {lug}?", "Can you give me {en}?"],
+  ["njagala okugula {lug}", "I want to buy {en}"],
+  ["njagala okutunda {lug}", "I want to sell {en}"],
+  ["njagala okulaba {lug}", "I want to see {en}"],
+  ["njagala okumanya {lug}", "I want to know about {en}"],
+  ["{lug} eri ludda wa?", "Where is {en}?"],
+  ["{lug} eri kumpi?", "Is {en} near?"],
+  ["{lug} eri wala?", "Is {en} far?"],
+  ["genda ku {lug}", "Go to {en}"],
+  ["ndi ku {lug}", "I am at {en}"]
+];
+
+for (const [lugandaTemplate, englishTemplate] of phraseTemplates) {
+  for (const [lugandaTerm, englishTerm] of phraseItems) {
+    const luganda = lugandaTemplate.replace("{lug}", lugandaTerm);
+    const english = englishTemplate.replace("{en}", englishTerm);
+    dictionary[luganda] = english;
+  }
+}
+
+const wordDictionary = {
+  oli: "you are", otya: "how", mwasuze: "did you sleep", wasuze: "did you sleep",
+  mutya: "how", gyebale: "well done", ko: "you", webale: "thank you", nnyo: "very much",
+  nkwagala: "I love you", nsanyuse: "I am happy", okukulaba: "to see you", tukusanyukidde: "we are happy",
+  erinnya: "name", lyo: "your", ggwe: "you", ani: "who", oyitibwa: "you are called", nsaba: "please",
+  oyambe: "help me", mpola: "slowly", kaakati: "now", enkya: "tomorrow", leero: "today", amazzi: "water",
+  emmere: "food", mirembe: "peace", ssebo: "sir", nnyabo: "madam", yego: "yes", nedda: "no"
+};
+
+let englishDictionary = Object.fromEntries(
+  Object.entries(dictionary).map(([luganda, english]) => [normalizeKey(english), luganda])
+);
+
+const englishWordDictionary = {
+  "you are": "oli", how: "otya", "did you sleep": "wasuze otya", "well done": "gyebale ko",
+  "thank you": "webale", "very much": "nnyo", "i love you": "nkwagala", "i am happy": "nsanyuse",
+  "to see you": "okukulaba", "we are happy": "tukusanyukidde", name: "erinnya", your: "lyo",
+  you: "ggwe", who: "ani", "you are called": "oyitibwa", please: "nsaba", "help me": "oyambe",
+  slowly: "mpola", now: "kaakati", tomorrow: "enkya", today: "leero", water: "amazzi", food: "emmere",
+  peace: "mirembe", hello: "mirembe", sir: "ssebo", madam: "nnyabo", yes: "yego", no: "nedda"
+};
+
+const sourceText = document.querySelector("#sourceText");
+const result = document.querySelector("#result");
+const characterCount = document.querySelector("#characterCount");
+const matchStatus = document.querySelector("#matchStatus");
+const clearButton = document.querySelector("#clearButton");
+const copyButton = document.querySelector("#copyButton");
+const swapButton = document.querySelector("#swapButton");
+const translateButton = document.querySelector("#translateButton");
+
+function normalize(text) {
+  return text.toLowerCase().trim().replace(/[!?.,;:]+$/g, "").replace(/\s+/g, " ");
+}
+
+function normalizeKey(text) {
+  return normalize(text).replace(/[!?.,;:]+$/g, "");
+}
+
+async function loadPhrasebook() {
+  try {
+    const response = await fetch("luganda-dictionary.json");
+    if (!response.ok) throw new Error("Phrasebook unavailable");
+    Object.assign(dictionary, await response.json());
+    englishDictionary = Object.fromEntries(
+      Object.entries(dictionary).map(([luganda, english]) => [normalizeKey(english), luganda])
+    );
+  } catch {
+    // The embedded phrasebook remains available when the resource cannot load.
+  }
+}
+
+let sourceLanguage = "Luganda";
+let translationRequestId = 0;
+let currentTranslation = "";
+
+function translate(text) {
+  const normalized = normalize(text);
+  if (!normalized) return null;
+  const activeDictionary = sourceLanguage === "Luganda" ? dictionary : englishDictionary;
+  const activeWordDictionary = sourceLanguage === "Luganda" ? wordDictionary : englishWordDictionary;
+  if (activeDictionary[normalized]) return { text: activeDictionary[normalized], exact: true };
+
+  const words = normalized.split(" ").map((word) => activeWordDictionary[word.replace(/[!?.,;:]/g, "")]);
+  if (words.every(Boolean)) return { text: words.join(" "), exact: false };
+  return { text: "I’m still learning this phrase.", exact: false, unknown: true };
+}
+
+function renderLocalTranslation(value) {
+  const translation = translate(value);
+  result.classList.toggle("translated", Boolean(translation && !translation.unknown));
+  if (!translation) {
+    result.innerHTML = "Your translation<br /><span>will appear here.</span>";
+    matchStatus.textContent = "Ready when you are";
+    currentTranslation = "";
+    return translation;
+  }
+  result.textContent = translation.text;
+  currentTranslation = translation.unknown ? "" : translation.text;
+  matchStatus.textContent = translation.unknown ? "Connecting to Google Translate..." : translation.exact ? "Phrase match" : "Word by word";
+  return translation;
+}
+
+async function renderTranslation() {
+  const value = sourceText.value;
+  characterCount.textContent = `${value.length} / 240`;
+  const localTranslation = renderLocalTranslation(value);
+  if (!value.trim()) return;
+
+  const requestId = ++translationRequestId;
+  try {
+    const response = await fetch("/api/translate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: value, sourceLanguage })
+    });
+    if (!response.ok) throw new Error("Translation service unavailable");
+    const data = await response.json();
+    if (requestId !== translationRequestId) return;
+    result.textContent = data.translation;
+    result.classList.add("translated");
+    currentTranslation = data.translation;
+    matchStatus.textContent = "Google Translate";
+  } catch {
+    if (requestId !== translationRequestId) return;
+    matchStatus.textContent = localTranslation && !localTranslation.unknown ? "Local phrasebook" : "Translation service unavailable";
+  }
+}
+
+function updateLanguageLabels() {
+  const languages = document.querySelectorAll(".language");
+  const targetLanguage = sourceLanguage === "Luganda" ? "English" : "Luganda";
+  languages[0].textContent = sourceLanguage;
+  languages[1].textContent = targetLanguage;
+  languages[0].classList.add("active");
+  languages[1].classList.remove("active");
+  document.querySelector(".eyebrow").innerHTML = `${sourceLanguage} <span>→</span> ${targetLanguage}`;
+  document.querySelector(".output-label span").textContent = `${targetLanguage} meaning`;
+  sourceText.placeholder = sourceLanguage === "Luganda" ? "Wandika mu Luganda..." : "Write in English...";
+  document.title = "LUGAFLOW / Luganda to English";
+}
+
+sourceText.addEventListener("input", () => {
+  characterCount.textContent = `${sourceText.value.length} / 240`;
+});
+translateButton.addEventListener("click", renderTranslation);
+clearButton.addEventListener("click", () => {
+  sourceText.value = "";
+  sourceText.focus();
+  renderTranslation();
+});
+
+document.querySelectorAll(".example-chip").forEach((chip) => {
+  chip.addEventListener("click", () => {
+    sourceText.value = chip.dataset.phrase;
+    renderTranslation();
+    sourceText.focus();
+  });
+});
+
+copyButton.addEventListener("click", async () => {
+  if (!currentTranslation) return;
+  await navigator.clipboard.writeText(currentTranslation);
+  const original = copyButton.innerHTML;
+  copyButton.textContent = "Copied";
+  setTimeout(() => { copyButton.innerHTML = original; }, 1400);
+});
+
+swapButton.addEventListener("click", () => {
+  sourceLanguage = sourceLanguage === "Luganda" ? "English" : "Luganda";
+  updateLanguageLabels();
+  renderTranslation();
+});
+
+updateLanguageLabels();
+loadPhrasebook();

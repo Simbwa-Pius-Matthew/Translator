@@ -1,0 +1,12 @@
+{
+  "name": "lugaflow",
+  "version": "1.0.0",
+  "private": true,
+  "description": "LUGAFLOW English and Luganda translator powered by Google Cloud Translation",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

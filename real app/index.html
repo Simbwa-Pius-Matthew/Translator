@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f1e8" />
+    <meta
+      name="description"
+      content="LUGAFLOW is a quick Luganda and English phrase translator."
+    />
+    <link rel="icon" href="translation-icon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="site.webmanifest" />
+    <title>LUGAFLOW / Luganda to English</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="LUGAFLOW home">
+        <span class="brand-mark">L</span>
+        <span class="brand-name">LUGAFLOW</span>
+      </a>
+      <div class="topbar-note">
+        <span class="status-dot"></span> A small bridge between languages
+      </div>
+      <img
+        class="topbar-image"
+        src="image.png"
+        alt="Luganda language illustration"
+      />
+    </header>
+
+    <main class="page-shell">
+      <section class="intro">
+        <p class="eyebrow">Luganda <span>→</span> English</p>
+        <h1>Say it in<br /><em>another way.</em></h1>
+        <p class="intro-copy">
+          A quiet, quick translator for everyday conversation. Start with a
+          phrase, a greeting, or a single word.
+        </p>
+      </section>
+
+      <section class="translator" aria-label="Translation workspace">
+        <div class="translator-head">
+          <div class="language-pair">
+            <span class="language active">Luganda</span>
+            <button
+              class="swap-button"
+              id="swapButton"
+              type="button"
+              title="Swap languages"
+              aria-label="Swap languages"
+            >
+              ⇄
+            </button>
+            <span class="language">English</span>
+          </div>
+          <span class="local-label">LOCAL PHRASEBOOK</span>
+        </div>
+
+        <div class="translation-grid">
+          <div class="input-panel panel">
+            <label for="sourceText">Your words</label>
+            <textarea
+              id="sourceText"
+              maxlength="240"
+              placeholder="Wandika mu Luganda..."
+              spellcheck="false"
+            ></textarea>
+            <div class="panel-footer">
+              <span id="characterCount">0 / 240</span>
+              <div class="input-actions">
+                <button class="clear-button" id="clearButton" type="button">
+                  Clear
+                </button>
+                <button
+                  class="translate-button"
+                  id="translateButton"
+                  type="button"
+                >
+                  Translate <span aria-hidden="true">→</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="output-panel panel">
+            <div class="output-label">
+              <span>English meaning</span><span class="spark">✦</span>
+            </div>
+            <div class="result" id="result" aria-live="polite">
+              Your translation<br /><span>will appear here.</span>
+            </div>
+            <div class="panel-footer output-footer">
+              <span id="matchStatus">Ready when you are</span
+              ><button
+                class="copy-button"
+                id="copyButton"
+                type="button"
+                title="Copy translation"
+                aria-label="Copy translation"
+              >
+                Copy <span>↗</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="examples-row">
+          <span class="examples-label">Try one</span>
+          <button class="example-chip" type="button" data-phrase="Oli otya?">
+            Oli otya?
+          </button>
+          <button class="example-chip" type="button" data-phrase="Webale nnyo">
+            Webale nnyo
+          </button>
+          <button class="example-chip" type="button" data-phrase="Nkwagala">
+            Nkwagala
+          </button>
+          <button
+            class="example-chip"
+            type="button"
+            data-phrase="Mwasuze mutya?"
+          >
+            Mwasuze mutya?
+          </button>
+        </div>
+      </section>
+
+      <section class="notes" aria-label="About this translator">
+        <div class="note-item">
+          <span class="note-number">01</span>
+          <p>
+            <strong>Made for the moment.</strong><br />Common phrases first,
+            with room to explore.
+          </p>
+        </div>
+        <div class="note-item">
+          <span class="note-number">02</span>
+          <p>
+            <strong>Keep the context.</strong><br />Luganda words can shift with
+            tone and situation.
+          </p>
+        </div>
+        <div class="note-item">
+          <span class="note-number">03</span>
+          <p>
+            <strong>Still growing.</strong><br />This phrasebook gets better as
+            you add to it.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>Built with care for everyday conversation</span
+      ><span class="footer-mark">Uganda · 00°19′N 32°35′E</span>
+    </footer>
+    <script src="app.js"></script>
+  </body>
+</html>

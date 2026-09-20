@@ -1,0 +1,17 @@
+{
+  "name": "LUGAFLOW",
+  "short_name": "LUGAFLOW",
+  "description": "A quick Luganda and English phrase translator.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f1e8",
+  "theme_color": "#285b4a",
+  "icons": [
+    {
+      "src": "/translation-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

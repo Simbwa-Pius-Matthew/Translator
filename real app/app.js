@@ -181,6 +181,56 @@ for (const [lugandaTemplate, englishTemplate] of phraseTemplates) {
   }
 }
 
+const pairedPhraseTemplates = [
+  ["njagala {lugA} ne {lugB}", "I want {enA} and {enB}"],
+  ["nina {lugA} ne {lugB}", "I have {enA} and {enB}"],
+  ["nkwetaaga {lugA} ne {lugB}", "I need {enA} and {enB}"],
+  ["njagala okugula {lugA} ne {lugB}", "I want to buy {enA} and {enB}"],
+  ["{lugA} ne {lugB} biri ludda wa?", "Where are {enA} and {enB}?"],
+  ["{lugA} ne {lugB} biri kumpi?", "Are {enA} and {enB} near?"],
+  ["{lugA} ne {lugB} biri wala?", "Are {enA} and {enB} far?"],
+  ["mpa {lugA} ne {lugB}", "Give me {enA} and {enB}"],
+  ["ndaba {lugA} ne {lugB}", "I see {enA} and {enB}"],
+  ["nalaba {lugA} ne {lugB}", "I saw {enA} and {enB}"],
+  ["njagala okulaba {lugA} ne {lugB}", "I want to see {enA} and {enB}"],
+  ["njagala okumanya ku {lugA} ne {lugB}", "I want to know about {enA} and {enB}"],
+  ["njogera ku {lugA} ne {lugB}", "I am talking about {enA} and {enB}"],
+  ["mpulira ku {lugA} ne {lugB}", "I hear about {enA} and {enB}"],
+  ["yogera ku {lugA} ne {lugB}", "Talk about {enA} and {enB}"],
+  ["wandiika ku {lugA} ne {lugB}", "Write about {enA} and {enB}"],
+  ["soma ku {lugA} ne {lugB}", "Read about {enA} and {enB}"],
+  ["njagala okwogera ku {lugA} ne {lugB}", "I want to talk about {enA} and {enB}"],
+  ["njagala okuyiga ku {lugA} ne {lugB}", "I want to learn about {enA} and {enB}"],
+  ["nsobola okulaba {lugA} ne {lugB}", "I can see {enA} and {enB}"],
+  ["nsobola okugula {lugA} ne {lugB}", "I can buy {enA} and {enB}"],
+  ["nsobola okutunda {lugA} ne {lugB}", "I can sell {enA} and {enB}"],
+  ["nsobola okutwala {lugA} ne {lugB}", "I can take {enA} and {enB}"],
+  ["nsobola okuleeta {lugA} ne {lugB}", "I can bring {enA} and {enB}"],
+  ["njagala okutwala {lugA} ne {lugB}", "I want to take {enA} and {enB}"],
+  ["njagala okuleeta {lugA} ne {lugB}", "I want to bring {enA} and {enB}"],
+  ["tewali {lugA} ne {lugB}", "There is no {enA} or {enB}"],
+  ["waliwo {lugA} ne {lugB}", "There is {enA} and {enB}"],
+  ["{lugA} ne {lugB} birungi", "{enA} and {enB} are good"],
+  ["{lugA} ne {lugB} bya mugaso", "{enA} and {enB} are useful"],
+  ["{lugA} ne {lugB} byangu", "{enA} and {enB} are easy"],
+  ["{lugA} ne {lugB} bikulu", "{enA} and {enB} are important"],
+  ["{lugA} ne {lugB} byonna", "All of {enA} and {enB}"],
+  ["kati nnina {lugA} ne {lugB}", "Now I have {enA} and {enB}"]
+];
+
+for (const [lugandaTemplate, englishTemplate] of pairedPhraseTemplates) {
+  for (const [lugandaTermA, englishTermA] of phraseItems) {
+    for (const [lugandaTermB, englishTermB] of phraseItems) {
+      if (lugandaTermA === lugandaTermB) continue;
+      dictionary[lugandaTemplate
+        .replace("{lugA}", lugandaTermA)
+        .replace("{lugB}", lugandaTermB)] = englishTemplate
+        .replace("{enA}", englishTermA)
+        .replace("{enB}", englishTermB);
+    }
+  }
+}
+
 const wordDictionary = {
   oli: "you are", otya: "how", mwasuze: "did you sleep", wasuze: "did you sleep",
   mutya: "how", gyebale: "well done", ko: "you", webale: "thank you", nnyo: "very much",

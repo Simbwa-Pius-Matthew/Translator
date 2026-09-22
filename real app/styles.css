@@ -3,6 +3,8 @@
   --muted: #6f7973;
   --paper: #f5f1e8;
   --panel: #fbfaf5;
+  --input-panel: #dcecf4;
+  --output-panel: #eaf3fa;
   --line: #d8ddd3;
   --green: #285b4a;
   --lime: #dce8a6;
@@ -42,13 +44,19 @@ h1 em { color: var(--green); font-style: italic; }
 .local-label { color: var(--muted); font-family: var(--mono); font-size: 9px; letter-spacing: .12em; }
 .translation-grid { display: grid; grid-template-columns: 1fr 1fr; }
 .panel { min-height: 290px; padding: 29px 30px 20px; display: flex; flex-direction: column; }
-.input-panel { border-right: 1px solid var(--line); }
+.input-panel { border-right: 1px solid var(--line); background: linear-gradient(145deg, var(--input-panel), #eef7fb); }
+.output-panel { background: linear-gradient(145deg, var(--output-panel), #f5faff); }
 .panel label, .output-label { color: var(--muted); font-family: var(--mono); font-size: 10px; letter-spacing: .11em; text-transform: uppercase; }
 textarea { flex: 1; width: 100%; resize: none; border: 0; outline: 0; background: transparent; color: var(--ink); padding: 28px 0 15px; font-family: var(--serif); font-size: 30px; line-height: 1.25; }
 textarea::placeholder { color: #b5bcb3; }
 .panel-footer { display: flex; align-items: center; justify-content: space-between; color: #9aa39b; font-family: var(--mono); font-size: 10px; }
-.clear-button, .copy-button, .translate-button { border: 0; background: transparent; padding: 5px 0; color: var(--muted); font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; }
-.clear-button:hover, .copy-button:hover { color: var(--coral); }
+.clear-button, .copy-button, .speak-button, .translate-button { border: 0; background: transparent; padding: 5px 0; color: var(--muted); font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; }
+.clear-button:hover, .copy-button:hover, .speak-button:hover { color: var(--coral); }
+.output-actions { display: flex; align-items: center; gap: 15px; }
+.speak-button { color: var(--green); font-weight: 700; }
+.speak-button:disabled { color: #b5bcb3; cursor: not-allowed; }
+.speak-button.speaking { color: var(--coral); }
+.speak-button span { display: inline-block; margin-left: 4px; font-size: 14px; transform: rotate(90deg); }
 .input-actions { display: flex; align-items: center; gap: 15px; }
 .translate-button { border: 1px solid var(--green); padding: 9px 12px; color: var(--paper); background: var(--green); font-weight: 700; transition: background .2s, border-color .2s, transform .2s; }
 .translate-button:hover { border-color: var(--coral); background: var(--coral); color: var(--ink); }

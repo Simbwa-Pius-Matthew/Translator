@@ -259,6 +259,7 @@ const characterCount = document.querySelector("#characterCount");
 const matchStatus = document.querySelector("#matchStatus");
 const clearButton = document.querySelector("#clearButton");
 const copyButton = document.querySelector("#copyButton");
+const speakButton = document.querySelector("#speakButton");
 const swapButton = document.querySelector("#swapButton");
 const translateButton = document.querySelector("#translateButton");
 
@@ -306,10 +307,12 @@ function renderLocalTranslation(value) {
     result.innerHTML = "Your translation<br /><span>will appear here.</span>";
     matchStatus.textContent = "Ready when you are";
     currentTranslation = "";
+    updateSpeakButton();
     return translation;
   }
   result.textContent = translation.text;
   currentTranslation = translation.unknown ? "" : translation.text;
+  updateSpeakButton();
   matchStatus.textContent = translation.unknown ? "Connecting to Google Translate..." : translation.exact ? "Phrase match" : "Word by word";
   return translation;
 }
@@ -333,11 +336,53 @@ async function renderTranslation() {
     result.textContent = data.translation;
     result.classList.add("translated");
     currentTranslation = data.translation;
+    updateSpeakButton();
     matchStatus.textContent = "Google Translate";
   } catch {
     if (requestId !== translationRequestId) return;
     matchStatus.textContent = localTranslation && !localTranslation.unknown ? "Local phrasebook" : "Translation service unavailable";
   }
+}
+
+function updateSpeakButton() {
+  speakButton.disabled = !currentTranslation || !("speechSynthesis" in window);
+}
+
+function stopSpeaking() {
+  if (!("speechSynthesis" in window)) return;
+  window.speechSynthesis.cancel();
+  speakButton.classList.remove("speaking");
+  speakButton.innerHTML = 'Speak <span aria-hidden="true">◖</span>';
+}
+
+function findSpeechVoice(language) {
+  const voices = window.speechSynthesis.getVoices();
+  const normalizedLanguage = language.toLowerCase();
+  return voices.find((voice) => voice.lang.toLowerCase() === normalizedLanguage)
+    || voices.find((voice) => voice.lang.toLowerCase().startsWith(normalizedLanguage.split("-")[0]));
+}
+
+function speakTranslation() {
+  if (!currentTranslation || !("speechSynthesis" in window)) return;
+  if (speakButton.classList.contains("speaking")) {
+    stopSpeaking();
+    return;
+  }
+
+  const utterance = new SpeechSynthesisUtterance(currentTranslation);
+  const targetLanguage = sourceLanguage === "Luganda" ? "en-US" : "lg-UG";
+  const voice = findSpeechVoice(targetLanguage);
+  utterance.lang = targetLanguage;
+  if (voice) utterance.voice = voice;
+  utterance.rate = 0.82;
+  utterance.pitch = 1;
+  utterance.volume = 1;
+  utterance.onend = stopSpeaking;
+  utterance.onerror = stopSpeaking;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(utterance);
+  speakButton.classList.add("speaking");
+  speakButton.innerHTML = 'Stop <span aria-hidden="true">■</span>';
 }
 
 function updateLanguageLabels() {
@@ -358,10 +403,13 @@ sourceText.addEventListener("input", () => {
 });
 translateButton.addEventListener("click", renderTranslation);
 clearButton.addEventListener("click", () => {
+  stopSpeaking();
   sourceText.value = "";
   sourceText.focus();
   renderTranslation();
 });
+
+speakButton.addEventListener("click", speakTranslation);
 
 document.querySelectorAll(".example-chip").forEach((chip) => {
   chip.addEventListener("click", () => {
@@ -380,10 +428,12 @@ copyButton.addEventListener("click", async () => {
 });
 
 swapButton.addEventListener("click", () => {
+  stopSpeaking();
   sourceLanguage = sourceLanguage === "Luganda" ? "English" : "Luganda";
   updateLanguageLabels();
   renderTranslation();
 });
 
 updateLanguageLabels();
+updateSpeakButton();
 loadPhrasebook();

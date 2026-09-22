@@ -98,16 +98,28 @@
               Your translation<br /><span>will appear here.</span>
             </div>
             <div class="panel-footer output-footer">
-              <span id="matchStatus">Ready when you are</span
-              ><button
-                class="copy-button"
-                id="copyButton"
-                type="button"
-                title="Copy translation"
-                aria-label="Copy translation"
-              >
-                Copy <span>↗</span>
-              </button>
+              <span id="matchStatus">Ready when you are</span>
+              <div class="output-actions">
+                <button
+                  class="speak-button"
+                  id="speakButton"
+                  type="button"
+                  title="Speak translation"
+                  aria-label="Speak translation"
+                  disabled
+                >
+                  Speak <span aria-hidden="true">◖</span>
+                </button>
+                <button
+                  class="copy-button"
+                  id="copyButton"
+                  type="button"
+                  title="Copy translation"
+                  aria-label="Copy translation"
+                >
+                  Copy <span>↗</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -29,6 +29,10 @@
       <div class="topbar-note">
         <span class="status-dot"></span> A small bridge between languages
       </div>
+      <div class="account-controls" aria-label="Account access">
+        <span id="authStatus" aria-live="polite">Free trial</span>
+        <button id="authButton" type="button">Sign in</button>
+      </div>
       <img
         class="topbar-image"
         src="image.png"
@@ -44,6 +48,26 @@
           A quiet, quick translator for everyday conversation. Start with a
           phrase, a greeting, or a single word.
         </p>
+      </section>
+
+      <section
+        class="paywall"
+        id="paywall"
+        aria-labelledby="paywallTitle"
+        aria-live="polite"
+        hidden
+      >
+        <div>
+          <span class="paywall-label">LUGAFLOW PLUS</span>
+          <h2 id="paywallTitle">Keep the conversation moving.</h2>
+          <p id="paywallMessage">
+            Your free translation allowance is ready when you are.
+          </p>
+        </div>
+        <button id="upgradeButton" type="button">
+          View plans <span aria-hidden="true">→</span>
+        </button>
+        <div id="paywallContainer" class="paywall-container"></div>
       </section>
 
       <section class="translator" aria-label="Translation workspace">
@@ -72,9 +96,10 @@
               maxlength="240"
               placeholder="Wandika mu Luganda..."
               spellcheck="false"
+              aria-describedby="characterCount matchStatus"
             ></textarea>
             <div class="panel-footer">
-              <span id="characterCount">0 / 240</span>
+              <span id="characterCount" aria-live="polite">0 / 240</span>
               <div class="input-actions">
                 <button class="clear-button" id="clearButton" type="button">
                   Clear
@@ -98,7 +123,7 @@
               Your translation<br /><span>will appear here.</span>
             </div>
             <div class="panel-footer output-footer">
-              <span id="matchStatus">Ready when you are</span>
+              <span id="matchStatus" role="status">Ready when you are</span>
               <div class="output-actions">
                 <button
                   class="speak-button"
@@ -174,6 +199,14 @@
       <span>Built with care for everyday conversation</span
       ><span class="footer-mark">Uganda · 00°19′N 32°35′E</span>
     </footer>
+    <noscript
+      >This translator needs JavaScript for interactive translation. The
+      phrasebook is available when JavaScript is enabled.</noscript
+    >
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://unpkg.com/@revenuecat/purchases-js@1.13.2/dist/purchases-js.umd.js"></script>
+    <script src="firebase-config.js"></script>
     <script src="app.js"></script>
   </body>
 </html>

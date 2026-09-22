@@ -7,6 +7,22 @@
       "**/node_modules/**"
     ],
     "cleanUrls": true,
+    "rewrites": [
+      {
+        "source": "/api/**",
+        "function": {
+          "functionId": "api",
+          "region": "us-central1"
+        }
+      },
+      {
+        "source": "/revenueCatWebhook",
+        "function": {
+          "functionId": "revenueCatWebhook",
+          "region": "us-central1"
+        }
+      }
+    ],
     "headers": [
       {
         "source": "**/*.@(js|css|json|webmanifest|svg)",
@@ -18,5 +34,11 @@
         ]
       }
     ]
+  },
+  "functions": {
+    "source": "functions"
+  },
+  "firestore": {
+    "rules": "firestore.rules"
   }
 }

@@ -1,10 +1,16 @@
 const http = require("node:http");
 const fs = require("node:fs");
 const path = require("node:path");
+const { TranslationServiceClient } = require("@google-cloud/translate");
 
 const port = Number(process.env.PORT) || 3000;
 const host = process.env.HOST || "0.0.0.0";
 const apiKey = process.env.GOOGLE_TRANSLATE_API_KEY;
+const projectId = process.env.GOOGLE_CLOUD_PROJECT || process.env.GCLOUD_PROJECT;
+const serviceAccountJson = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
+const translationClient = projectId
+  ? new TranslationServiceClient(serviceAccountJson ? { credentials: JSON.parse(serviceAccountJson) } : {})
+  : null;
 const root = __dirname;
 
 const contentTypes = {
@@ -34,8 +40,8 @@ function readBody(request) {
 }
 
 async function translate(request, response) {
-  if (!apiKey) {
-    sendJson(response, 503, { error: "GOOGLE_TRANSLATE_API_KEY is not configured" });
+  if (!translationClient && !apiKey) {
+    sendJson(response, 503, { error: "Google Cloud Translation is not configured" });
     return;
   }
 
@@ -46,6 +52,20 @@ async function translate(request, response) {
     const target = source === "en" ? "lg" : "en";
     if (!text) {
       sendJson(response, 400, { error: "Text is required" });
+      return;
+    }
+
+    if (translationClient) {
+      const [googleData] = await translationClient.translateText({
+        parent: `projects/${projectId}/locations/global`,
+        contents: [text],
+        mimeType: "text/plain",
+        sourceLanguageCode: source,
+        targetLanguageCode: target
+      });
+      const translation = googleData.translations?.[0]?.translatedText;
+      if (!translation) throw new Error("Google Cloud returned no translation");
+      sendJson(response, 200, { translation });
       return;
     }
 
@@ -64,7 +84,7 @@ async function translate(request, response) {
     }
     sendJson(response, 200, { translation: googleData.data.translations[0].translatedText });
   } catch {
-    sendJson(response, 400, { error: "Invalid translation request" });
+    sendJson(response, 502, { error: "Google Cloud Translation request failed" });
   }
 }
 

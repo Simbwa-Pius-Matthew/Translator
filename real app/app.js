@@ -262,6 +262,95 @@ const copyButton = document.querySelector("#copyButton");
 const speakButton = document.querySelector("#speakButton");
 const swapButton = document.querySelector("#swapButton");
 const translateButton = document.querySelector("#translateButton");
+const authStatus = document.querySelector("#authStatus");
+const authButton = document.querySelector("#authButton");
+const paywall = document.querySelector("#paywall");
+const paywallMessage = document.querySelector("#paywallMessage");
+const upgradeButton = document.querySelector("#upgradeButton");
+let currentUser = null;
+let purchases = null;
+
+function configureRevenueCat(user) {
+  const sdk = window.Purchases;
+  const publicKey = window.LUGAFLOW_REVENUECAT_PUBLIC_KEY;
+  if (!user || !publicKey || publicKey.startsWith("YOUR_") || !sdk?.Purchases) return;
+  try {
+    purchases = sdk.Purchases.configure({ apiKey: publicKey, appUserId: user.uid });
+  } catch {
+    purchases = null;
+  }
+}
+
+function updateAuthUI(user) {
+  currentUser = user;
+  authStatus.textContent = user ? user.email || "Signed in" : "Free trial";
+  authButton.textContent = user ? "Sign out" : "Sign in";
+  configureRevenueCat(user);
+}
+
+function initializeAuth() {
+  const config = window.LUGAFLOW_FIREBASE_CONFIG;
+  if (!window.firebase || !config || config.apiKey.startsWith("YOUR_")) {
+    authStatus.textContent = "Add Firebase config";
+    authButton.disabled = true;
+    return;
+  }
+  firebase.initializeApp(config);
+  firebase.auth().onAuthStateChanged(updateAuthUI);
+  authButton.addEventListener("click", async () => {
+    try {
+      if (firebase.auth().currentUser) {
+        await firebase.auth().signOut();
+        return;
+      }
+      await firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    } catch {
+      authStatus.textContent = "Sign-in unavailable";
+    }
+  });
+}
+
+async function getAuthHeaders() {
+  if (!currentUser) return { "Content-Type": "application/json" };
+  return {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${await currentUser.getIdToken()}`
+  };
+}
+
+async function showPaywall(message) {
+  paywall.hidden = false;
+  paywallMessage.textContent = message;
+  if (!currentUser) {
+    paywallMessage.textContent = "Sign in first to view plans and keep your account connected.";
+    return;
+  }
+  try {
+    const billingResponse = await fetch("/api/billing", { headers: await getAuthHeaders() });
+    if (!billingResponse.ok) throw new Error("Billing status unavailable");
+    const billing = await billingResponse.json();
+    if (billing.subscriptionActive) {
+      paywallMessage.textContent = "Your plan is active. You have unlimited translations.";
+      return;
+    }
+    if (billing.trialActive) {
+      paywallMessage.textContent = `${billing.usedToday} of ${billing.dailyFreeLimit} free translations used today.`;
+    }
+  } catch {
+    paywallMessage.textContent = "Plans are temporarily unavailable. Please try again soon.";
+    return;
+  }
+  if (purchases) {
+    try {
+      const offerings = await purchases.getOfferings();
+      if (offerings.current) {
+        await purchases.presentPaywall({ htmlTarget: document.querySelector("#paywallContainer"), offering: offerings.current });
+      }
+    } catch {
+      paywallMessage.textContent = "Plans are temporarily unavailable. Please try again soon.";
+    }
+  }
+}
 
 function normalize(text) {
   return text.toLowerCase().trim().replace(/[!?.,;:]+$/g, "").replace(/\s+/g, " ");
@@ -327,9 +416,17 @@ async function renderTranslation() {
   try {
     const response = await fetch("/api/translate", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: await getAuthHeaders(),
       body: JSON.stringify({ text: value, sourceLanguage })
     });
+    if (response.status === 401) {
+      throw new Error("SIGN_IN_REQUIRED");
+    }
+    if (response.status === 402 || response.status === 429) {
+      const limit = await response.json();
+      await showPaywall(limit.error || "Your free translation allowance has ended.");
+      throw new Error("PAYWALL");
+    }
     if (!response.ok) throw new Error("Translation service unavailable");
     const data = await response.json();
     if (requestId !== translationRequestId) return;
@@ -338,9 +435,15 @@ async function renderTranslation() {
     currentTranslation = data.translation;
     updateSpeakButton();
     matchStatus.textContent = "Google Translate";
-  } catch {
+  } catch (error) {
     if (requestId !== translationRequestId) return;
-    matchStatus.textContent = localTranslation && !localTranslation.unknown ? "Local phrasebook" : "Translation service unavailable";
+    if (error.message === "SIGN_IN_REQUIRED") {
+      matchStatus.textContent = "Sign in for Google translation";
+    } else if (error.message === "PAYWALL") {
+      matchStatus.textContent = "Upgrade to continue";
+    } else {
+      matchStatus.textContent = localTranslation && !localTranslation.unknown ? "Local phrasebook" : "Translation service unavailable";
+    }
   }
 }
 
@@ -436,4 +539,6 @@ swapButton.addEventListener("click", () => {
 
 updateLanguageLabels();
 updateSpeakButton();
+upgradeButton.addEventListener("click", () => showPaywall("Choose a plan to keep translating without the free limit."));
+initializeAuth();
 loadPhrasebook();

@@ -8,3 +8,7 @@ services:
     envVars:
       - key: GOOGLE_TRANSLATE_API_KEY
         sync: false
+      - key: GOOGLE_CLOUD_PROJECT
+        sync: false
+      - key: GOOGLE_SERVICE_ACCOUNT_JSON
+        sync: false

@@ -269,6 +269,13 @@ const swapButton = document.querySelector("#swapButton");
 const translateButton = document.querySelector("#translateButton");
 const authButton = document.querySelector("#authButton");
 const emailAvatar = document.querySelector("#emailAvatar");
+const historyRow = document.querySelector("#historyRow");
+const historyList = document.querySelector("#historyList");
+const historyClear = document.querySelector("#historyClear");
+
+const historyKey = `lugaflowHistory:${session.email}`;
+const HISTORY_LIMIT = 6;
+let history = loadHistory();
 
 const emailParts = session.email.split("@")[0].split(/[._-]+/).filter(Boolean);
 const initials = emailParts.slice(0, 2).map((part) => part[0]).join("").toUpperCase();
@@ -281,6 +288,61 @@ authButton.addEventListener("click", (event) => {
   localStorage.removeItem("lugaflowSession");
   window.location.replace("login.html");
 });
+
+function loadHistory() {
+  try {
+    const stored = JSON.parse(localStorage.getItem(historyKey) || "[]");
+    return Array.isArray(stored) ? stored.slice(0, HISTORY_LIMIT) : [];
+  } catch {
+    return [];
+  }
+}
+
+function recordHistory(source, translation, language) {
+  const trimmed = source.trim();
+  if (!trimmed || !translation) return;
+  const entry = { source: trimmed, translation, language };
+  if (history[0] && history[0].source === entry.source && history[0].language === entry.language) {
+    history[0] = entry;
+  } else {
+    history = history.filter((item) => !(item.source === entry.source && item.language === entry.language));
+    history.unshift(entry);
+  }
+  history = history.slice(0, HISTORY_LIMIT);
+  localStorage.setItem(historyKey, JSON.stringify(history));
+  renderHistory();
+}
+
+function renderHistory() {
+  historyRow.hidden = history.length === 0;
+  historyList.innerHTML = "";
+  for (const entry of history) {
+    const item = document.createElement("li");
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "history-item";
+    button.innerHTML = `
+      <span class="history-text">
+        <span class="history-source"></span>
+        <span class="history-target"></span>
+      </span>
+      <span class="history-dir"></span>`;
+    button.querySelector(".history-source").textContent = entry.source;
+    button.querySelector(".history-target").textContent = entry.translation;
+    button.querySelector(".history-dir").textContent = entry.language === "Luganda" ? "LUG → EN" : "EN → LUG";
+    button.addEventListener("click", () => {
+      if (sourceLanguage !== entry.language) {
+        sourceLanguage = entry.language;
+        updateLanguageLabels();
+      }
+      sourceText.value = entry.source;
+      renderTranslation();
+      sourceText.focus();
+    });
+    item.appendChild(button);
+    historyList.appendChild(item);
+  }
+}
 
 function normalize(text) {
   return text.toLowerCase().trim().replace(/[!?.,;:]+$/g, "").replace(/\s+/g, " ");
@@ -343,6 +405,8 @@ async function renderTranslation() {
   if (!value.trim()) return;
 
   const requestId = ++translationRequestId;
+  translateButton.dataset.loading = "true";
+  translateButton.disabled = true;
   try {
     const response = await fetch("/api/translate", {
       method: "POST",
@@ -357,9 +421,18 @@ async function renderTranslation() {
     currentTranslation = data.translation;
     updateSpeakButton();
     matchStatus.textContent = "Google Translate";
+    recordHistory(value, data.translation, sourceLanguage);
   } catch (error) {
     if (requestId !== translationRequestId) return;
     matchStatus.textContent = localTranslation && !localTranslation.unknown ? "Local phrasebook" : "Translation service unavailable";
+    if (localTranslation && !localTranslation.unknown) {
+      recordHistory(value, localTranslation.text, sourceLanguage);
+    }
+  } finally {
+    if (requestId === translationRequestId) {
+      delete translateButton.dataset.loading;
+      translateButton.disabled = false;
+    }
   }
 }
 
@@ -420,7 +493,19 @@ function updateLanguageLabels() {
 sourceText.addEventListener("input", () => {
   characterCount.textContent = `${sourceText.value.length} / 240`;
 });
+sourceText.addEventListener("keydown", (event) => {
+  const composing = event.isComposing || event.keyCode === 229;
+  if (event.key === "Enter" && (event.metaKey || event.ctrlKey) && !composing) {
+    event.preventDefault();
+    renderTranslation();
+  }
+});
 translateButton.addEventListener("click", renderTranslation);
+historyClear.addEventListener("click", () => {
+  history = [];
+  localStorage.removeItem(historyKey);
+  renderHistory();
+});
 clearButton.addEventListener("click", () => {
   stopSpeaking();
   sourceText.value = "";
@@ -455,4 +540,5 @@ swapButton.addEventListener("click", () => {
 
 updateLanguageLabels();
 updateSpeakButton();
+renderHistory();
 loadPhrasebook();

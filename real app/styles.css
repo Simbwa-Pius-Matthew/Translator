@@ -98,6 +98,21 @@ textarea::placeholder { color: #b5bcb3; }
 .paywall > button:hover { background: var(--coral); border-color: var(--coral); color: var(--ink); }
 .paywall-container { grid-column: 1 / -1; }
 .examples-label { color: var(--muted); font-family: var(--mono); font-size: 9px; letter-spacing: .1em; margin-right: 5px; text-transform: uppercase; white-space: nowrap; }
+.history-row { padding: 16px 24px 20px; border-top: 1px solid var(--line); }
+.history-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.history-label { color: var(--muted); font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
+.history-clear { border: 0; background: transparent; padding: 0; color: var(--muted); font-family: var(--mono); font-size: 9px; letter-spacing: .06em; text-transform: uppercase; }
+.history-clear:hover { color: var(--coral); }
+.history-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.history-item { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px; width: 100%; border: 1px solid var(--line); border-radius: 4px; background: rgba(255,255,255,.28); padding: 10px 14px; text-align: left; transition: border-color .2s, background .2s, transform .2s; }
+.history-item:hover { border-color: var(--green); background: var(--lime); transform: translateY(-1px); }
+.history-text { min-width: 0; }
+.history-source { display: block; color: var(--ink); font-family: var(--serif); font-size: 15px; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.history-target { display: block; color: var(--green); font-size: 12px; line-height: 1.4; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.history-dir { flex: 0 0 auto; color: var(--muted); font-family: var(--mono); font-size: 8px; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+.translate-button[data-loading="true"] { opacity: .7; cursor: progress; }
+.translate-button[data-loading="true"] span { animation: pulse-dot 1s ease-in-out infinite; }
+@keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
 .example-chip { border: 1px solid var(--line); color: var(--ink); background: rgba(255,255,255,.28); padding: 8px 12px; font-family: var(--serif); font-size: 13px; white-space: nowrap; transition: border-color .2s, background .2s, transform .2s; }
 .example-chip:hover { border-color: var(--green); background: var(--lime); }
 .example-chip:hover { transform: translateY(-2px); }

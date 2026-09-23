@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f5f1e8" />
+    <meta name="theme-color" content="#f4f0e6" />
     <meta
       name="description"
       content="LUGAFLOW is a quick Luganda and English phrase translator."
@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Roboto:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
@@ -29,10 +29,22 @@
       <div class="topbar-note">
         <span class="status-dot"></span> A small bridge between languages
       </div>
-      <div class="account-controls" aria-label="Account access">
-        <span id="authStatus" aria-live="polite">Free trial</span>
-        <button id="authButton" type="button">Sign in</button>
-      </div>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="#translator">Translate</a>
+        <a href="#notes">About</a>
+        <div class="account-controls" aria-label="Account access">
+          <span class="email-avatar" id="emailAvatar" aria-hidden="true"></span>
+          <a
+            id="authButton"
+            class="auth-link"
+            data-navigation="login"
+            href="login.html"
+            aria-label="Sign out"
+            title="Sign out"
+            >Signed in</a
+          >
+        </div>
+      </nav>
       <img
         class="topbar-image"
         src="image.png"
@@ -43,34 +55,23 @@
     <main class="page-shell">
       <section class="intro">
         <p class="eyebrow">Luganda <span>→</span> English</p>
-        <h1>Say it in<br /><em>another way.</em></h1>
+        <h1>What would you want me to translate?</h1>
+        <div class="ug-logo" aria-label="Uganda logo">
+          <span class="ug-logo-mark">UG</span>
+          <span class="ug-logo-caption">Uganda<br />language bridge</span>
+        </div>
         <p class="intro-copy">
           A quiet, quick translator for everyday conversation. Start with a
           phrase, a greeting, or a single word.
         </p>
+        <p class="luganda-translation" lang="lg">Oyagala nkukyuse ki?</p>
       </section>
 
       <section
-        class="paywall"
-        id="paywall"
-        aria-labelledby="paywallTitle"
-        aria-live="polite"
-        hidden
+        class="translator"
+        id="translator"
+        aria-label="Translation workspace"
       >
-        <div>
-          <span class="paywall-label">LUGAFLOW PLUS</span>
-          <h2 id="paywallTitle">Keep the conversation moving.</h2>
-          <p id="paywallMessage">
-            Your free translation allowance is ready when you are.
-          </p>
-        </div>
-        <button id="upgradeButton" type="button">
-          View plans <span aria-hidden="true">→</span>
-        </button>
-        <div id="paywallContainer" class="paywall-container"></div>
-      </section>
-
-      <section class="translator" aria-label="Translation workspace">
         <div class="translator-head">
           <div class="language-pair">
             <span class="language active">Luganda</span>
@@ -170,7 +171,7 @@
         </div>
       </section>
 
-      <section class="notes" aria-label="About this translator">
+      <section class="notes" id="notes" aria-label="About this translator">
         <div class="note-item">
           <span class="note-number">01</span>
           <p>
@@ -203,10 +204,6 @@
       >This translator needs JavaScript for interactive translation. The
       phrasebook is available when JavaScript is enabled.</noscript
     >
-    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-    <script src="https://unpkg.com/@revenuecat/purchases-js@1.13.2/dist/purchases-js.umd.js"></script>
-    <script src="firebase-config.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
